@@ -1,2 +1,2 @@
-# Imbeded_Edge_Cloud
+# Embeded_Edge_Cloud
 project
