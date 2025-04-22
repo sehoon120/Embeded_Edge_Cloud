@@ -13,7 +13,7 @@ ssh -i C:\Users\happy\Desktop\My_folder\AWS_EC2\Embeded_Project_Server\my_key.pe
 - RTT: 74.00 ms | 평균 RTT: 71.65 ms
 
 
-
+- AWS free-tier는 GPU가 없다. g4dn.xlarge 사용 고려 (NVIDIA T4, 약 $0.526/hr)
 
 
 
