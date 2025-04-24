@@ -72,6 +72,7 @@ ssh -i C:\Users\happy\Desktop\My_folder\AWS_EC2\Embeded_Project_Server\my_key.pe
 
 ## 📁 프로젝트 폴더 구조
 
+```bash
 Embeded_Edge_Cloud/
 ├── Sehoon                     # Sehoon 개별 WorkSpace
 ├── nocrop_client.py           # 서버 연결 테스트 코드
