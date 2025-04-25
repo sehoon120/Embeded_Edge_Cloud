@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def home():
-    return "✅ 서버가 잘 열렸습니다!"
+    return "server opened"
 
 @app.route('/infer', methods=['POST'])
 def infer():
@@ -15,7 +15,6 @@ def infer():
     image_file = request.files['image']
     filename = image_file.filename
 
-    # 예시: 파일 이름만 리턴
     return jsonify({'result': f'{filename} received!'})
 
 if __name__ == '__main__':
