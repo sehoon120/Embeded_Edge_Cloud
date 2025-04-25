@@ -1,10 +1,13 @@
 ## Window cmd와 WSL 사이의 포트 포워딩 진행
-ipconfig
 # ipconfig로 [IP_Address] 확인
+ipconfig
 
+# 포트 포워딩 진행 후 확인
 sudo netsh interface portproxy add v4tov4 listenport=5000 listenaddress=[IP_Address] connectport=5000 connectaddress=<WSL_IP>
 netsh interface portproxy show all
-# 포트 포워딩 진행 후 확인
+
+# 현재 열려있는 포트 확인
+netstat -ano | findstr :5000
 
 ---
 ## 포트포워딩 없애고 싶을 때
