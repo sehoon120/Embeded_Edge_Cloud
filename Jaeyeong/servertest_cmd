@@ -1,0 +1,1 @@
+netsh interface portproxy add v4tov4 listenport=5000 listenaddress=[IP_Address] connectport=5000 connectaddress=<WSL_IP>
