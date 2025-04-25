@@ -1,4 +1,5 @@
 # Server Open Code
+- servertest.cmd
 - servertest.py
 ---
 # Addition of Embeddings on Model
