@@ -17,8 +17,8 @@ We process image only in spike occuration time, and server connection also only 
 This will make a lot of power reduction and light progress of Raspberry pi system.
 Also, Spike condition can be manually modified by handling hyperparameters.
 
-There are two version
+There are two versions
 - spike_client.py
 - spike_server_client.py
 
-spike_server_client.py file is one of our final goal in spike client code which is connected to server only in spike time.
+spike_server_client.py file is one of our final goal in spike client code which is connecting to server only in spike time.
