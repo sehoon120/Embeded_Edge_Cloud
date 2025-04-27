@@ -37,9 +37,9 @@ spike_list = list([])
 
 T = 100
 for step in range(T):
-  if step % 1 == 0:
+  if step % 3 == 0:
     x = 1
-  elif (step % 15 == 0) and (step > 60):
+  elif (step % 2 == 0) and (step > 60):
     x = 1
   else:
     x = 0
