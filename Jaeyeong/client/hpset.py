@@ -4,9 +4,9 @@ from __future__ import print_function
 #Python 3 스타일의 print 함수 사용가능.
 import numpy as np
 import matplotlib.pyplot as plt
-thresh = 0.1 # neuronal threshold (V)
+thresh = 0.15 # neuronal threshold (V)
 delta_t = 2**(-10) #s
-tau1, tau2 = 50e-3, 10e-3 #s *********** CM
+tau1, tau2 = 25e-3, 2.5e-3 #s *********** CM
 const = tau1 / (tau1 - tau2)
 decay1 = np.exp(-delta_t/tau1)
 decay2 = np.exp(-delta_t/tau2)
