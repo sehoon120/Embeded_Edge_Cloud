@@ -15,7 +15,7 @@ URL = 'http://52.79.154.43:8000/inference'
 # spiking method base setting
 thresh = 0.15
 delta_t = 2**(-10)
-tau1, tau2 = 50e-3, 10e-3
+tau1, tau2 = 25e-3, 2.5e-3
 const = tau1 / (tau1 - tau2)
 decay1 = np.exp(-delta_t/tau1)
 decay2 = np.exp(-delta_t/tau2)
