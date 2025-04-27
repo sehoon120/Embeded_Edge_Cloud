@@ -3,9 +3,8 @@ from __future__ import print_function
 import numpy as np
 import matplotlib.pyplot as plt
 thresh = 0.15 # neuronal threshold (V)
-lens = thresh # hyper-parameters of approximate function
 delta_t = 2**(-10) #s
-tau1, tau2 = 50e-3, 10e-3 #s *********** CM
+tau1, tau2 = 25e-3, 2.5e-3 #s *********** CM
 const = tau1 / (tau1 - tau2)
 decay1 = np.exp(-delta_t/tau1)
 decay2 = np.exp(-delta_t/tau2)
@@ -36,9 +35,9 @@ spike_list = list([])
 
 T = 100
 for step in range(T):
-  if step % 1 == 0:
+  if step % 3 == 0:
     x = 1
-  elif (step % 15 == 0) and (step > 60):
+  elif (step % 2 == 0) and (step > 60):
     x = 1
   else:
     x = 0
