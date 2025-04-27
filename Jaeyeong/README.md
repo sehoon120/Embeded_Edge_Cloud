@@ -2,12 +2,15 @@
 - servertest.cmd
 - servertest.py
 ---
+
 # Addition of Embeddings on Model
 - han_embedding.npy
 ---
+
 # Server connect + Model Inference
 - one_detect_server.py
 - two_detect_server.py
+---
 
 # Client code with using SNN membrane potential method
 In Spiking Neural Network, Membrane potential and spike are used to lighten the Neural Network.
@@ -22,3 +25,7 @@ There are two versions
 - spike_server_client.py
 
 spike_server_client.py file is one of our final goal in spike client code which is connecting to server only in spike time.
+
+---
+# Test code
+In test directory, there are codes for simulating in computer.
