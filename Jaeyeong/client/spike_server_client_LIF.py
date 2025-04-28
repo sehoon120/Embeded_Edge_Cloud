@@ -91,14 +91,12 @@ def detect_person_and_prepare_file(frame, model, face_cascade, default_files, me
                     x1, y1, x2, y2 = boxes[idx]
                     area = (x2 - x1) * (y2 - y1)
                     areas.append(area)
-
-
                 max_area_idx = person_indices[np.argmax(areas)]
-                '''
-                person_boxes = boxes[person_indices]
-                areas = (person_boxes[:, 2] - person_boxes[:, 0]) * (person_boxes[:, 3] - person_boxes[:, 1])
-                max_area_idx = person_indices[np.argmax(areas)]
-                '''
+                
+                #person_boxes = boxes[person_indices]
+                #areas = (person_boxes[:, 2] - person_boxes[:, 0]) * (person_boxes[:, 3] - person_boxes[:, 1])
+                #max_area_idx = person_indices[np.argmax(areas)]
+                
                 # crop the biggest person
                 x1, y1, x2, y2 = map(int, boxes[max_area_idx])
                 person_crop = frame[y1:y2, x1:x2]
