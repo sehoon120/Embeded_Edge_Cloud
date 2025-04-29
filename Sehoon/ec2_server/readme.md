@@ -1,6 +1,6 @@
 # 서버 파일 관리 공간
 
-## Embeding
+## Embedding
 
 ```bash
 registered_faces/
