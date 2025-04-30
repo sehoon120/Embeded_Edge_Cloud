@@ -1,3 +1,5 @@
+# pip install insightface onnxruntime opencv-python-headless numpy flask
+
 from flask import Flask, request, jsonify
 import cv2
 import numpy as np
@@ -5,11 +7,16 @@ import insightface
 import time
 import os
 
-# pip install insightface onnxruntime opencv-python-headless numpy flask
+# pip uninstall onnxruntime
+# pip install onnxruntime-gpu
 
+# import onnxruntime
+# print("Available providers:", onnxruntime.get_available_providers())
 
 # 모델 로드 (ArcFace 모델)
 model = insightface.app.FaceAnalysis(name='buffalo_l', providers=['CPUExecutionProvider'])
+# 변경 코드 (GPU 설정)
+# model = insightface.app.FaceAnalysis(name='buffalo_l', providers=['CUDAExecutionProvider'])
 model.prepare(ctx_id=0)
 
 # 등록된 얼굴 (사전 임베딩)
