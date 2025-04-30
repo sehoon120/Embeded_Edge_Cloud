@@ -14,8 +14,8 @@ model.prepare(ctx_id=0)
 
 # 등록된 얼굴 (사전 임베딩)
 registered_faces = {
-    'alice': None,
-    'bob': None,
+    'sehoon': None,
+    'jaeyoung': None,
 }
 
 # 이미지에서 얼굴 임베딩 추출 함수
