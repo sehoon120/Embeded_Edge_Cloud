@@ -17,7 +17,7 @@ print("ONNX Runtime available providers:", ort.get_available_providers())
 
 # 등록 얼굴 폴더
 registered_faces = {}
-reg_folder = r'C:\Embeded_Project\Embeded_Edge_Cloud\Sehoon\ec2_server\registered_faces'
+reg_folder = r'C:\Embeded_Project\registered_faces'
 
 def extract_embedding(img_path):
     img = cv2.imread(img_path)
@@ -40,7 +40,7 @@ for fname in os.listdir(reg_folder):
             print(f"[INFO] 등록 완료: {name}")
 
 # 테스트 이미지 폴더 및 이름 패턴
-test_folder = r'C:\Embeded_Project\Embeded_Edge_Cloud\Sehoon\ec2_server\img'
+test_folder = r'C:\Embeded_Project\img'
 test_pattern = 'test_face_'
 
 # 테스트 이미지 0 ~ 8번 순회
@@ -66,4 +66,4 @@ for i in range(9):
             best_name = name
 
     # 결과 출력
-    print(f"[RESULT] {test_pattern}{i}.jpg → 최종 매칭: {best_name} (유사도: {best_score:.3f})\n")
+    print(f"[RESULT] → 최종 매칭: {best_name} (유사도: {best_score:.3f})\n")
