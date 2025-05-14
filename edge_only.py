@@ -48,31 +48,45 @@ picam2.start()
 while True:
     frame = picam2.capture_array()
     img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
     faces = extract_faces(img_rgb)
 
-    for face in faces:
-        embedding = face.embedding
-        bbox = face.bbox.astype(int).tolist()
+    # 스파이킹 조건 업데이트
+    x = 1.0 if len(faces) > 0 else 0.0
+    mem, spike = mem_update(x, mem, spike)
 
-        best_score = -1
-        best_name = 'unknown'
+    if spike:
+        print("[EVENT] 얼굴 인식됨 → 추론 및 결과 출력")
 
-        for name, ref in registered_faces.items():
-            if ref is not None:
-                score = cosine_similarity(embedding, ref)
-                if score > best_score:
-                    best_score = score
-                    best_name = name
+        display_frame = frame.copy()
 
-        x1, y1, x2, y2 = bbox
-        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(frame, f"{best_name} ({best_score:.2f})", (x1, y1 - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+        for face in faces:
+            embedding = face.embedding
+            bbox = face.bbox.astype(int).tolist()
 
-        print(f"[RESULT] 이름: {best_name}, 유사도: {best_score:.3f}, bbox: {bbox}")
+            best_score = -1
+            best_name = 'unknown'
 
-    cv2.imshow("Edge-only Face Recognition", frame)
+            for name, ref in registered_faces.items():
+                if ref is not None:
+                    score = cosine_similarity(embedding, ref)
+                    if score > best_score:
+                        best_score = score
+                        best_name = name
+
+            x1, y1, x2, y2 = bbox
+            cv2.rectangle(display_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.putText(display_frame, f"{best_name} ({best_score:.2f})", (x1, y1 - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+
+            print(f"[RESULT] 이름: {best_name}, 유사도: {best_score:.3f}, bbox: {bbox}")
+
+        # 결과 이미지 1장 표시 (0.5초 간격으로 자동 진행)
+        cv2.imshow("Recognition Result", display_frame)
+        cv2.waitKey(1)  # 최소한의 GUI 업데이트를 위해 필요
+        time.sleep(0.5)
+
+    else:
+        time.sleep(0.1)  # 얼굴 없을 땐 짧게 반복
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
