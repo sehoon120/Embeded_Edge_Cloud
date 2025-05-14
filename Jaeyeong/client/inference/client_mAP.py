@@ -38,7 +38,9 @@ for person in os.listdir(lfw_dir):
         img = cv2.imread(img_path)
         if img is None:
             continue
-
+        
+        #img = cv2.resize(img, (112, 112))
+        
         _, img_encoded = cv2.imencode('.jpg', img)
         files = {'image': ('image.jpg', img_encoded.tobytes(), 'image/jpeg')}
 
