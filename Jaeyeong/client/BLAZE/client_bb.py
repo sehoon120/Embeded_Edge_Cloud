@@ -105,7 +105,7 @@ while True:
         except Exception as e:
             print(f"Request exception: {e}")
     
-    # ⭐ 실시간 영상 출력
+    # 실시간 영상 출력
     cv2.imshow("Face Recognition", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
