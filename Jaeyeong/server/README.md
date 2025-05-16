@@ -14,5 +14,5 @@
 
 # server_boundingbox.py
 
-It is currently most recent code. \n
+It is currently most recent code.
 This server code classify faces and return bounding box and result.
