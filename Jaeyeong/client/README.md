@@ -11,3 +11,7 @@ There are two versions
 - spike_server_client.py
 
 spike_server_client.py file is one of our final goal in spike client code which is connecting to server only in spike time.
+
+# BlazeFace model for client
+We finally selected BlazeFace model for client face detection which is fast and accurate
+
