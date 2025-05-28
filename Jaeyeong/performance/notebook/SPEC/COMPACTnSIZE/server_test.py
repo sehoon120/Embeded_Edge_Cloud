@@ -53,18 +53,33 @@ def cosine_similarity(a, b):
 # Threshold 설정
 THRESHOLD = 0.4
 
+# 평균 계산용 변수
+total_bytes = 0
+num_images = 0
+
 # Flask 앱 설정
 app = Flask(__name__)
 
 @app.route('/inference', methods=['POST'])
 def inference():
+    global total_bytes, num_images
     recv_time = time.time()
 
     if 'image' not in request.files:
         return jsonify({'status': 'error', 'message': 'No image uploaded'}), 400
 
     file = request.files['image']
-    img_array = np.frombuffer(file.read(), np.uint8)
+    file_bytes = file.read()
+    byte_size = len(file_bytes)
+
+    # 누적 통계 계산
+    total_bytes += byte_size
+    num_images += 1
+    avg_bytes = total_bytes / num_images
+
+    print(f"[INFO] 수신 이미지 크기: {byte_size} bytes | 평균: {avg_bytes:.2f} bytes")
+
+    img_array = np.frombuffer(file_bytes, np.uint8)
     img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
     if img is None:
@@ -91,7 +106,6 @@ def inference():
         if best_score < THRESHOLD:
             best_name = '-'
 
-        # 응답용 (float), 그리기용 (int) bbox 모두 생성
         bbox = face.bbox.astype(int).tolist()
 
         results.append({
