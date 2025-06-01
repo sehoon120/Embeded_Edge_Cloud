@@ -111,7 +111,11 @@ if __name__ == '__main__':
 
     client.connect(MQTT_BROKER, MQTT_PORT, 60)
     client.subscribe(MQTT_TOPIC_SUB)
-    print(f"[INFO] MQTT 브로커에 연결됨, 토픽 '{MQTT_TOPIC_SUB}' 구독 중...")
-
-    client.loop_forever()
+    print(f"[INFO] MQTT 브로커에 연결됨, 토픽 '{MQTT_TOPIC_SUB}' 구독 중..")
+    
+    try:
+        client.loop_forever()
+    except KeyboardInterrupt:
+        client.disconnect()
+        print("[INFO] 종료 완료")
 
