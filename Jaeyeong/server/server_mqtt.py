@@ -64,4 +64,8 @@ client = mqtt.Client()
 client.on_message = on_message
 client.connect("localhost", 1883)
 client.subscribe("face/infer/request")
-client.loop_forever()
+try:
+        client.loop_forever()
+    except KeyboardInterrupt:
+        client.disconnect()
+        print("[INFO] 종료 완료")
