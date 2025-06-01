@@ -66,6 +66,6 @@ client.connect("localhost", 1883)
 client.subscribe("face/infer/request")
 try:
         client.loop_forever()
-    except KeyboardInterrupt:
+except KeyboardInterrupt:
         client.disconnect()
         print("[INFO] 종료 완료")
