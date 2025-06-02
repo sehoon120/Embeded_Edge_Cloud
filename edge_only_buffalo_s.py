@@ -83,7 +83,6 @@ while True:
             print(f"[RESULT] 이름: {best_name}, 유사도: {best_score:.3f}, bbox: {bbox}")
 
         cv2.imshow("Recognition Result", display_frame)
-        cv2.waitKey(1)
         time.sleep(0.5)
     else:
         time.sleep(0.1)
