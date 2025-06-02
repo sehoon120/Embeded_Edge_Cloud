@@ -7,6 +7,7 @@ from picamera2 import Picamera2
 
 # 등록된 얼굴 경로
 REGISTER_DIR = 'registered_faces'
+
 registered_faces = {
     'sehoon': None,
     'jaeyoung': None,
@@ -45,18 +46,16 @@ picam2 = Picamera2()
 picam2.configure(picam2.create_preview_configuration(main={"size": (640, 480)}))
 picam2.start()
 
+face_prev = False
+
 while True:
     frame = picam2.capture_array()
     img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     faces = extract_faces(img_rgb)
 
-    # 스파이킹 조건 업데이트
-    x = 1.0 if len(faces) > 0 else 0.0
-    mem, spike = mem_update(x, mem, spike)
-
-    if spike:
+    face_now = len(faces) > 0
+    if face_now and not face_prev:
         print("[EVENT] 얼굴 인식됨 → 추론 및 결과 출력")
-
         display_frame = frame.copy()
 
         for face in faces:
@@ -73,6 +72,9 @@ while True:
                         best_score = score
                         best_name = name
 
+            if best_score < 0.4:
+                best_name = 'unknown'
+
             x1, y1, x2, y2 = bbox
             cv2.rectangle(display_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv2.putText(display_frame, f"{best_name} ({best_score:.2f})", (x1, y1 - 10),
@@ -80,16 +82,17 @@ while True:
 
             print(f"[RESULT] 이름: {best_name}, 유사도: {best_score:.3f}, bbox: {bbox}")
 
-        # 결과 이미지 1장 표시 (0.5초 간격으로 자동 진행)
         cv2.imshow("Recognition Result", display_frame)
-        cv2.waitKey(1)  # 최소한의 GUI 업데이트를 위해 필요
+        cv2.waitKey(1)
         time.sleep(0.5)
-
     else:
-        time.sleep(0.1)  # 얼굴 없을 땐 짧게 반복
+        time.sleep(0.1)
+
+    face_prev = face_now
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
 
 picam2.stop()
 cv2.destroyAllWindows()
