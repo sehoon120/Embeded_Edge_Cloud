@@ -4,9 +4,11 @@ import os
 import time
 import onnxruntime as ort
 import mediapipe as mp
-# from picamera2 import Picamera2
+from picamera2 import Picamera2
 
-# 경로 설정
+# pip install onnxruntime
+
+# 경로 설정     에지에서 재설정
 REGISTER_DIR = r"C:\Embeded_Project\registered_faces"
 ONNX_PATH = r'C:\Embeded_Project\Embeded_Edge_Cloud\Sehoon\models\buffalo_s_recognition_fp16.onnx'
 
