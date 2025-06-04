@@ -3,8 +3,8 @@ import numpy as np
 import os
 import time
 import mediapipe as mp
-from picamera2 import Picamera2
 from insightface.app import FaceAnalysis
+# from picamera2 import Picamera2
 
 # 경로 설정
 REGISTER_DIR = r"C:\Embeded_Project\registered_faces"
@@ -30,17 +30,17 @@ def mem_update(x, mem, spike):
     spike = act_fun(thresh, mem)
     return mem, spike
 
-# ✅ 얼굴 인식 모델 로드 (InsightFace)
+# ✅ InsightFace 모바일 모델 로딩
 try:
-    model_recog = FaceAnalysis(name='buffalo_s', providers=['CPUExecutionProvider'])  # 또는 CUDAExecutionProvider
-    model_recog.prepare(ctx_id=0)
-    print("[INFO] InsightFace buffalo_s 모델 로딩 성공")
+    print("[INFO] MobileFace 모델 로딩 중...")
+    face_recog_model = FaceAnalysis(name='mobileface', providers=['CPUExecutionProvider'])  # 또는 CUDAExecutionProvider
+    face_recog_model.prepare(ctx_id=0)
+    print("[INFO] MobileFace 모델 로딩 완료!")
 except Exception as e:
-    print(f"[ERROR] 모델 로딩 실패: {e}")
-    exit()
+    print(f"[ERROR] MobileFace 모델 로딩 실패: {e}")
 
 def extract_embedding(img):
-    faces = model_recog.get(img)
+    faces = face_recog_model.get(img)
     if not faces:
         return None
     return faces[0].embedding / np.linalg.norm(faces[0].embedding)
@@ -48,17 +48,18 @@ def extract_embedding(img):
 def cosine_similarity(a, b):
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
-# 등록된 얼굴 로딩
+
+# 얼굴 등록 초기화
 print("[INFO] 등록된 얼굴 로딩 중...")
 mp_face_detection = mp.solutions.face_detection
-model = mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.6)
+mp_fd_reg = mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.6)
 
 for name in registered_faces:
     path = os.path.join(REGISTER_DIR, f"{name}.jpg")
     if os.path.exists(path):
         img = cv2.imread(path)
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        result = model.process(img_rgb)
+        result = mp_fd_reg.process(img_rgb)
 
         if result.detections:
             bbox = result.detections[0].location_data.relative_bounding_box
@@ -82,7 +83,7 @@ for name in registered_faces:
     else:
         print(f"[WARNING] 등록 이미지 없음: {name}")
 
-model.close()
+mp_fd_reg.close()
 
 # 실시간 처리 시작
 print("[INFO] 얼굴 인식 시작")
