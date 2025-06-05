@@ -86,21 +86,20 @@ python edge_only_buffalo_s_quantized_copy
 ---
 
 
-### 📊 성능 평가 결과
+## 📊 성능 평가 결과
 
-```markdown
 | 시스템       | AUC    | TPR@FAR=1e-3 | 평균 처리 시간 (RTT) |
 |--------------|--------|---------------|-----------------------|
 | Edge-Cloud-AWS   | 0.9896  | 0.9748         | ~0.05초               |
 | Edge-Cloud-Laptop   | 0.9896  | 0.9748         | ~0.15초               |
 | Edge-only    | 0.9423  | 0.4563         | ~0.19초               |
-```
 
-### ROC Curve (예시)
+### ROC Curve
 
+#### AWS&Laptop
 ![ROC Curve AWS&Laptop](./progress_1/AWS_n_Laptop/ROC.png)
 
-
+#### Edge_Only
 ![ROC Curve Edge_Only](./progress_1/edge_only/ROC.png)
 
 
