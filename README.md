@@ -35,7 +35,7 @@
 ## 🔗 AWS EC2 서버 환경
 
 - 인스턴스 타입: `t2.micro` (Free-tier)
-- GPU 필요 시: `g4dn.xlarge` (NVIDIA T4, 약 $0.526/hr)
+- GPU 필요 시: `g4dn.xlarge` (NVIDIA T4, 약 $0.526/hr) or `g6dn.xlarge`
 
 ---
 
@@ -53,14 +53,59 @@ Embeded_Edge_Cloud/
 ├── Sehoon                     # Sehoon 개별 WorkSpace
 ├── Jaeyeong                   # Jaeyeong 개별 WorkSpace
 ├── registered_faces           # 임베딩 등록용 사진 경로
+├── edge_cloud                 # 에지 클라우드 협업업 시스템 실행 코드
 ├── edge_only                  # 에지 only 시스템 실행 코드
-├── edge_only_performance      # 에지 only 시스템 LFW 성능 테스트 코드
+├── eval_performance           # 시스템별 ROC, AUC 테스트 코드
 ├── README.md                  # 프로젝트 설명 문서
 └── progress_1                 # 테스트 결과 이미지 저장 폴더
 ```
 
 ---
 
+## 🚀 실행 방법 (Usage)
+
+### EC2 server 실행
+
+```bash
+cd edge_cloud
+python server.py
+```
+
+### 라즈베리파이 edge 실행
+```bash
+cd edge_cloud
+python edge.py
+```
+
+### 라즈베리파이 edge_only 실행
+```bash
+cd edge_only
+python edge_only_buffalo_s_quantized_copy
+```
+
+---
+
+
+### ✅ 2. 📊 성능 평가 결과
+
+```markdown
+## 📊 성능 평가 결과
+
+| 시스템       | AUC    | TPR@FAR=1e-3 | 평균 처리 시간 (RTT) |
+|--------------|--------|---------------|-----------------------|
+| Edge-Cloud-AWS   | 0.9896  | 0.9748         | ~0.05초               |
+| Edge-Cloud-Laptop   | 0.9896  | 0.9748         | ~0.15초               |
+| Edge-only    | 0.9423  | 0.4563         | ~0.19초               |
+
+### ROC Curve (예시)
+
+![ROC Curve AWS&Laptop](./progress_1/AWS_n_Laptop/ROC.png)
+
+
+![ROC Curve Edge_Only](./progress_1/edge_only/ROC.png)
+
+
+---
 ## 👥 팀원별 작업 분담
 
 | 이름            | 역할                                  |
@@ -70,33 +115,21 @@ Embeded_Edge_Cloud/
 
 ---
 
-## ✅ 주차별 계획 및 달성 현황
-
-| 주차 | 계획                             | 달성 여부 | 비고                         |
-|------|----------------------------------|-----------|------------------------------|
-| 9주차 | EC2 서버 설정, Flask 서버 구성           | ✅        | 테스트 완료                  |
-| 10주차| 얼굴 인식 모델 적용 (InsightFace)     | ✅        | 기본 임베딩 기반 확인           |
-| 11주차| Edge 전처리 방식 , 실시간 검출 안정화, 추론 테스트 | ✅        | 다양한 시스템 구성 시도 |
-
----
-
-## 🚀 향후 계획
-
-- [ ] 전력측정/성능측정 code 고안 + Inference 결과 반환 형식 정리
-- [ ] Edge-Cloud 간 전송 데이터 포맷 최적화 및 경량화 모델 개발
-- [ ] 경량화 모델 개발 후 결과 분석 및 시각화(정확도, 속도, 전력)
-- [ ] 심화목표 탐구 및 부족한 부분 보완, github 정리
-- [ ] 전체 시스템 통합 테스트 및 발표자료/최종보고서 작성
-
----
-
 ## 📎 참고
 
-> ⚠️ 본 프로젝트는 현재 진행 중이며, GitHub에 버전 관리된 코드와 실험 결과가 지속적으로 업데이트되고 있습니다.
+> 본 프로젝트는 현재 완료 버전입니다.
 > 미완성 코드도 commit 및 branch를 통해 관리되고 있습니다.
 
 - 📌 [프로젝트 GitHub 링크](https://github.com/sehoon120/Embeded_Edge_Cloud)
-- 📄 얼굴 인식 모델: InsightFace, ArcFace 등
+- 📄 얼굴 인식 모델: InsightFace
 - 📷 카메라 모듈: Raspberry Pi CSI camera + Picamera2
+
+---
+
+## 📄 라이선스 및 출처
+
+- 얼굴 인식 모델: [InsightFace (Apache 2.0 License)](https://github.com/deepinsight/insightface)
+- 본 프로젝트는 **연구 및 교육 목적**으로 개발되었으며, **상업적 사용은 금지**됩니다.
+- 사용된 이미지 데이터는 LFW (Labeled Faces in the Wild) 데이터셋을 기반으로 합니다.
 
 ---
