@@ -82,6 +82,12 @@ try:
                 y1 = max(int(bbox.ymin * h), 0)
                 x2 = min(int(x1 + bbox.width * w), w)
                 y2 = min(int(y1 + bbox.height * h), h)
+
+                # 슬라이싱 전에 유효성 체크
+                if x2 <= x1 or y2 <= y1:
+                    print(f"[WARNING] 잘못된 bbox 좌표: x1={x1}, x2={x2}, y1={y1}, y2={y2}")
+                    continue
+
                 face_crop = img[y1:y2, x1:x2]
                 if face_crop.size == 0:
                     print(f"[WARNING] 잘못된 crop: {name}")

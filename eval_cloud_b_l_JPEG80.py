@@ -59,6 +59,13 @@ def evaluate_insightface(pairs_path, lfw_root):
         img1 = cv2.imread(img1_path)
         img2 = cv2.imread(img2_path)
 
+        # ▶ 추가: JPEG 품질 80%로 메모리 상 압축/해제
+        _, buf1 = cv2.imencode(".jpg", img1, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
+        img1 = cv2.imdecode(buf1, cv2.IMREAD_COLOR)
+
+        _, buf2 = cv2.imencode(".jpg", img2, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
+        img2 = cv2.imdecode(buf2, cv2.IMREAD_COLOR)
+
         emb1 = extract_embedding(img1)
         emb2 = extract_embedding(img2)
 

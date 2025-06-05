@@ -109,8 +109,8 @@ while True:
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
 
     cv2.imshow("Face Recognition (Picamera2)", frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break
 
 cv2.destroyAllWindows()
 picam2.stop()

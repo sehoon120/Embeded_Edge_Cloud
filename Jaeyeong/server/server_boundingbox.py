@@ -5,6 +5,15 @@ import numpy as np
 import insightface
 import os
 import time
+# pip install --upgrade pip setuptools wheel
+# pip install insightface==0.7.3
+# pip install flask flask-cors
+# pip install onnxruntime-gpu --pre
+
+
+# /home/ubuntu/server.py
+
+
 
 # InsightFace 모델 준비 (GPU 사용)
 print("[INFO] 모델 로드 중...")
