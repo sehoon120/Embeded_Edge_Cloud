@@ -50,7 +50,7 @@ def cosine_similarity(a, b):
 THRESHOLD = 0.4
 
 # MQTT 설정
-MQTT_BROKER = "192.168.0.59"  # 실제 브로커 IP로 수정하세요
+MQTT_BROKER = "ipadr"  # 실제 브로커 IP로 수정하세요
 MQTT_PORT = 1883
 REQUEST_TOPIC = "face/infer/request"
 
